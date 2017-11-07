@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<title>HTML PARSER</title>
+<header name = "Access-Control-Allow-Origin" value = "*" />
+</head>
+<body>
+<div id="main"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+var text, parser, xmlDoc, txt, xmlstr;
+
+document.getElementById("main").style.position = "absolute";
+
+$.ajax({
+    url: 'http://192.168.254.101:8080/sample.xml',
+    type: 'GET',
+    dataType: 'xml',
+    timeout: 1000,
+    error: function(){
+        alert('Error loading XML document');
+    },
+    success: function(xml){
+        var xmlstr = (new XMLSerializer()).serializeToString(xml);
+		parser = new DOMParser();
+		xmlDoc = parser.parseFromString(xmlstr,"text/xml");
+		var i = 0;
+		var nodes = xmlDoc.getElementsByTagName('type'),
+			amountOfNodes = nodes.length;
+		while(i<nodes.length){
+			if(xmlDoc.getElementsByTagName("type")[i].childNodes[0].nodeValue == "label"){
+				createLabel(i);
+			}
+			else if(xmlDoc.getElementsByTagName("type")[i].childNodes[0].nodeValue == "button"){
+				createButton(i);
+			}
+			else if(xmlDoc.getElementsByTagName("type")[i].childNodes[0].nodeValue == "textbox"){
+				createTextBox(i);
+			}
+			i++;
+		}
+
+		function createLabel(i){
+			var x = document.createElement("LABEL");
+			var t = document.createTextNode(xmlDoc.getElementsByTagName("text")[i].childNodes[0].nodeValue);
+			x.setAttribute("for", "label"+i);
+			x.appendChild(t);
+			var div = document.createElement("div");
+			div.appendChild(x,document.getElementById("label"+i));
+			div.style.position = "absolute"; 
+			div.style.left = xmlDoc.getElementsByTagName("pos-x")[i].childNodes[0].nodeValue + "px"; 
+			div.style.top = xmlDoc.getElementsByTagName("pos-y")[i].childNodes[0].nodeValue + "px"; 
+			document.getElementById("main").appendChild(div);
+		}
+
+		function createButton(i){
+			var y = document.createElement("BUTTON");
+			var s = document.createTextNode(xmlDoc.getElementsByTagName("text")[i].childNodes[0].nodeValue);
+			y.setAttribute("for", "button"+i);
+			y.appendChild(s);
+			var div = document.createElement("div");
+			div.appendChild(y,document.getElementById("button"+i));
+			div.style.position = "absolute"; 
+			div.style.left = xmlDoc.getElementsByTagName("pos-x")[i].childNodes[0].nodeValue + "px"; 
+			div.style.top = xmlDoc.getElementsByTagName("pos-y")[i].childNodes[0].nodeValue + "px"; 
+			document.getElementById("main").appendChild(div);
+		}
+			
+		function createTextBox(i){
+			var z = document.createElement("TEXTAREA");
+			var r = document.createTextNode(xmlDoc.getElementsByTagName("text")[i].childNodes[0].nodeValue);
+			z.setAttribute("for", "textarea"+i);
+			z.appendChild(r);
+			var div = document.createElement("div");
+			div.appendChild(z,document.getElementById("textarea"+i));
+			div.style.position = "absolute"; 
+			div.style.left = xmlDoc.getElementsByTagName("pos-x")[i].childNodes[0].nodeValue + "px"; 
+			div.style.top = xmlDoc.getElementsByTagName("pos-y")[i].childNodes[0].nodeValue + "px"; 
+			document.getElementById("main").appendChild(div);
+		}
+	}
+});
+
+</script>
+
+</body>
+</html>

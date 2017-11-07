@@ -1,0 +1,22 @@
+<form>
+	<type>label</type>
+	<text> I am a sample label. </text>
+	<font>Lucidia Console</font>
+	<pos-x>400</pos-x>
+	<pos-y>400</pos-y>
+	<margin>10</margin>
+	<padding>10</padding>
+	<type>textbox</type>
+	<text> I am a sample textbox. </text>
+	<font>Lucidia Console</font>
+	<pos-x>500</pos-x>
+	<pos-y>600</pos-y>
+	<margin>10</margin>
+	<type>button</type>
+	<text> I am a sample button. </text>
+	<font>Lucidia Console</font>
+	<pos-x>800</pos-x>
+	<pos-y>1000</pos-y>
+	<margin>10</margin>
+	<padding>10</padding>
+</form>
