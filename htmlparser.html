@@ -15,7 +15,7 @@ var text, parser, xmlDoc, txt, xmlstr;
 document.getElementById("main").style.position = "absolute";
 
 $.ajax({
-    url: 'http://192.168.254.101:8080/sample.xml',
+    url: 'http://192.168.56.1:8080/sample.xml',
     type: 'GET',
     dataType: 'xml',
     timeout: 1000,
@@ -51,7 +51,7 @@ $.ajax({
 			div.appendChild(x,document.getElementById("label"+i));
 			div.style.position = "absolute"; 
 			div.style.left = xmlDoc.getElementsByTagName("pos-x")[i].childNodes[0].nodeValue + "px"; 
-			div.style.top = xmlDoc.getElementsByTagName("pos-y")[i].childNodes[0].nodeValue + "px"; 
+			div.style.top = xmlDoc.getElementsByTagName("pos-y")[i].childNodes[0].nodeValue + "px";
 			document.getElementById("main").appendChild(div);
 		}
 
